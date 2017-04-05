@@ -1,0 +1,16 @@
+.cesiumViewer {
+	height: 100%;
+	width: 100%;
+}
+.cesiumStyle{
+width: 70%;
+  flex:3;
+}
+.sidenavStyle{
+  width: 30%;
+  flex:1;
+  border-style: groove;
+}
+.Cesiumapp{
+  display:flex;
+}

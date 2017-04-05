@@ -1,0 +1,21 @@
+
+<table class="ui selectable inverted table">
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Status</th>
+    <th class="right aligned">Notes</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let datae of data">
+
+    <td (click)="clicked($event, datae)" id =datae.id>{{datae.name}}
+
+    </td>
+    <td>{{datae.desc}}</td>
+    <td>{{datae.lon}}</td>
+  </tr>
+
+  </tbody>
+</table>
