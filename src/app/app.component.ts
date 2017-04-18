@@ -13,10 +13,15 @@ import {Point} from './models/point';
 export class AppComponent implements OnInit {
   title = 'Demo Cesium ';
   viewer: any;
+  currentPoint: Point;
+  entityToPoint: Map<any, Point>;
+
   dataPoint:dataservice;
   constructor(
     private _Sidenavservice: Sidenavservice,private _appService:appService
-  ) { }
+  ) {
+    this.entityToPoint = new Map<any, Point>();
+  }
 
 
   ngOnInit(): void {
@@ -30,10 +35,13 @@ export class AppComponent implements OnInit {
     });
 
     this._appService.pointChanged.subscribe(point => {
+      this.currentPoint = point;
       var pinBuilder = new Cesium.PinBuilder();
 
-      this.viewer.entities.add({
-        position : Cesium.Cartesian3.fromDegrees(point.lon, point.lat),
+      let pointDegrees = Cesium.Cartesian3.fromDegrees(point.lon, point.lat);
+
+      let entity = this.viewer.entities.add({
+        position : pointDegrees,
 
         billboard : {
           image : pinBuilder.fromColor(Cesium.Color.ROYALBLUE, 48).toDataURL(), // default: undefined
@@ -51,54 +59,22 @@ export class AppComponent implements OnInit {
         }
 
       });
+
+      // this.viewer.camera.flyTo({
+      //   destination : pointDegrees
+      // });
+
+      this.entityToPoint.set(entity, point);
     });
 
-    /*Cesium.BingMapsApi.defaultKey = 'AroazdWsTmTcIx4ZE3SIicDXX00yEp9vuRZyn6pagjyjgS-VdRBfBNAVkvrucbqr';
-    window['CESIUM_BASE_URL'] = '/assets/Cesium';*/
-/*    this._Sidenavservice.getData().subscribe((dataPoint:any)=> this.dataPoint=dataPoint);*/
-
-
-
-
- /*   this.viewer = new Cesium.Viewer('cesiumViewer');
-    var pinBuilder = new Cesium.PinBuilder();
-    this.viewer.camera.flyTo({
-      destination : Cesium.Cartesian3.fromDegrees(35.771959, 31.217018,800000)
-    });*/
-
-
-    /*this._appService.onDraw();*/
-
-
-
-
-/*    this.viewer.entities.add({
-      position : Cesium.Cartesian3.fromDegrees(35.771959, 31.217018),
-      billboard : {
-        image : pinBuilder.fromColor(Cesium.Color.ROYALBLUE, 48).toDataURL(), // default: undefined
-        show : true, // default
-        pixelOffset : new Cesium.Cartesian2(0, -50), // default: (0, 0)
-        eyeOffset : new Cesium.Cartesian3(0.0, 0.0, 0.0), // default
-        horizontalOrigin : Cesium.HorizontalOrigin.CENTER, // default
-        verticalOrigin : Cesium.VerticalOrigin.BOTTOM, // default: CENTER
-        scale : 2.0, // default: 1.0
-        color : Cesium.Color.LIME, // default: WHITE
-        rotation : Cesium.Math.PI_OVER_FOUR, // default: 0.0
-        alignedAxis : Cesium.Cartesian3.ZERO, // default
-        width : 25, // default: undefined
-        height : 25 // default: undefined
+    let handler = new Cesium.ScreenSpaceEventHandler(this.viewer.scene.canvas);
+    handler.setInputAction((click) => {
+      var pickedObject = this.viewer.scene.pick(click.position);
+      if (Cesium.defined(pickedObject) && this.entityToPoint.has(pickedObject.id)) {
+        this.currentPoint = this.entityToPoint.get(pickedObject.id);
+        this._appService.changePoint(this.currentPoint);
       }
-
-    });*/
-
-/*    this.viewer.scene.canvas.setAttribute('tabIndex', 1);
-
-    this.viewer.screenSpaceEventHandler.setInputAction(function() {
-      this.viewer.scene.canvas.focus();
-    }, Cesium.ScreenSpaceEventType.LEFT_DOWN);*/
-
-
-
+    }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
 
   }
 

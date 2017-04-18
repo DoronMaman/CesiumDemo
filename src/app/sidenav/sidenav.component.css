@@ -2,3 +2,36 @@
   background-color: green;
 
 }
+tr{
+  cursor: pointer;
+}
+tr::selection {
+  background: #34495e;
+  color: white;
+}
+.tool_bars {
+  float:right;
+  background-color: white;
+  height: 100%;
+}
+.tableStyle{
+  width: 84%;
+  height: 100%;
+  float:left;
+  background:#333333;
+}
+.StyeItem{
+  height: 6%;
+  background-color: #D95C5C;
+
+}
+.styletab{
+  height: 20%;
+  position: fixed;
+  botton:36%;
+  left:95.5%;
+}
+.EventIcon{
+  /*background-color: #3c5876!important;*/
+  background-image: url("http://localhost:4200/src/assets/pin.png")!important;
+}

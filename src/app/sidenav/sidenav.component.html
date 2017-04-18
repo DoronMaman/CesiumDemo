@@ -1,4 +1,17 @@
-
+<div class="tool_bars">
+<div class="ui vertical icon menu StyleTab ">
+  <a class="item ">
+    <i class="home icon"></i>
+  </a>
+  <a class="item StyeItem">
+    <i class="video camera icon"></i>
+  </a>
+  <a class="item StyeItem">
+    <i class="video play icon"></i>
+  </a>
+</div>
+</div>
+<div class="tableStyle">
 <table class="ui selectable inverted table">
   <thead>
   <tr>
@@ -8,9 +21,9 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let datae of data">
+  <tr *ngFor="let datae of data" [style.background-color]="getStyle(datae)" (click)="clicked($event, datae)" id =datae.id>
 
-    <td (click)="clicked($event, datae)" id =datae.id>{{datae.name}}
+    <td >{{datae.name}}
 
     </td>
     <td>{{datae.desc}}</td>
@@ -19,3 +32,4 @@
 
   </tbody>
 </table>
+</div>
