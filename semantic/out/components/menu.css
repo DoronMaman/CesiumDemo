@@ -954,15 +954,15 @@ Floated Menu / Item
 .ui.secondary.pointing.menu .active.item {
   background-color: transparent;
   box-shadow: none;
-  border-color: #1B1C1D;
+  border-color: white;
   font-weight: bold;
-  color: rgba(0, 0, 0, 0.95);
+  color: white;
 }
 
 /* Active Hover */
 .ui.secondary.pointing.menu .active.item:hover {
-  border-color: #1B1C1D;
-  color: rgba(0, 0, 0, 0.95);
+  border-color: white;
+  color: white;
 }
 
 /* Active Dropdown */
@@ -988,7 +988,7 @@ Floated Menu / Item
 
 /* Vertical Active */
 .ui.secondary.vertical.pointing.menu .active.item {
-  border-color: #1B1C1D;
+  border-color: white;
 }
 
 /* Inverted */

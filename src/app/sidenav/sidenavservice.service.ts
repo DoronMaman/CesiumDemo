@@ -4,6 +4,7 @@ import {Headers, Http, Response} from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/Rx';
 import { dataservice } from './dataservice';
+import {User} from "../models/user";
 
 @Injectable()
 export class Sidenavservice {
@@ -11,8 +12,8 @@ export class Sidenavservice {
 
   constructor(private http:Http){}
   getData(){
-    return this.http.get('/assets/list.json')
-      .map((response:Response)=> response.json());
+    return this.http.get('https://usercesium.firebaseio.com/users.json')
+      .map((response:Response)=> Object.keys(response.json()).map((k) => response.json()[k]) as User[]);
   }
 }
 

@@ -1,11 +1,24 @@
-<h1>
-  {{title}}
-</h1>
-<div class="Cesiumapp">
+<div>
+<div id="first" class="ui inverted segment">
+  <div class="ui inverted secondary pointing menu">
+
+    <a class="mdl-navigation__link active item" [routerLink]="['/']">Home</a>
+
+    <a class="mdl-navigation__link active item" [routerLink]="['/AddUser']">ADD MISSION</a>
+    <a class="item">
+      HELP
+    </a>
+  </div>
+</div>
+
+</div>
+
+<div class="Cesiumapp" id="lefsSide">
 <div class="cesiumStyle">
 <div id="cesiumViewer" class="cesiumViewer"></div>
+
 </div>
 <div class="sidenavStyle">
-<app-sidenav></app-sidenav>
+<router-outlet></router-outlet>
 </div>
 </div>

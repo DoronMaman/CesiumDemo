@@ -38,19 +38,19 @@ _
     console.log(row.Id);
 
     this.currentPoint = {
-      lon: row.lon,
-      lat: row.lat
+      lon: row.latlng[1],
+      lat: row.latlng[0]
     };
 
     this._appService.changePoint(this.currentPoint);
   }
 
-  getStyle(row) {
-    if (this.currentPoint && row.lon === this.currentPoint.lon && row.lat === this.currentPoint.lat) {
-      return "#34495e";
-    }
-
-    return "";
-  }
+  // getStyle(row) {
+  //   if (this.currentPoint && row.lon === this.currentPoint.lon && row.lat === this.currentPoint.lat) {
+  //     return "#34495e";
+  //   }
+  //
+  //   return "";
+  // }
 
 }

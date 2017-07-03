@@ -1,0 +1,62 @@
+<div>
+<form class="ui form" (ngSubmit)="onSubmit(f)" #f="ngForm">
+<div  ngModelGroup="userData">
+  <div id="MainTitle">
+    <label >הוספת משתמש</label>
+  </div>
+
+  <div class="field MoveLeft ">
+    <label id="LabelWhite">תעודת זהות</label>
+        <div class="field MoveLeft">
+          <input type="text" name ="shipping[id]"
+                 [(ngModel)]="user.id"
+                 placeholder="תעודת זהות">
+        </div>
+  </div>
+  <div class="field MoveLeft ">
+    <label id="LabelWhite">שם מלא</label>
+    <div class="two fields">
+      <div class="field MoveLeft">
+        <input type="text" name ="shipping[first-name]"
+               [(ngModel)]="user.FirstName"
+               placeholder="שם פרטי">
+      </div>
+      <div  class="field MoveLeft">
+        <input id="LastName" type="text" name="shipping[last-name]"
+               [(ngModel)]="user.LastName"
+               placeholder="שם משפחה">
+      </div>
+    </div>
+    </div>
+  <div class="field MoveLeft">
+    <label id="LabelWhite">כתובת</label>
+    <div class="fields MoveLeft">
+      <div class="twelve wide field">
+        <input type="text" name="shipping[address]"
+               [(ngModel)]="user.Address"
+               placeholder="שם רחוב">
+      </div>
+      <div class="four wide field">
+        <input id="code" type="text" name="shipping[address-2]" placeholder="# מיקוד">
+      </div>
+    </div>
+  </div>
+  <div class="two fields MoveLeft">
+    <div class="field">
+      <label id="LabelWhite">מדינה</label>
+      <select name="country" [(ngModel)]="user.country">
+      <option *ngFor="let c of countries">{{c.name}}</option>
+
+      </select>
+    </div>
+  </div>
+
+
+
+<div class="MoveLeft">
+
+  <button type="submit" class="ui button">אישור</button>
+</div>
+</div>
+</form>
+</div>

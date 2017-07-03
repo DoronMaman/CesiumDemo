@@ -28,20 +28,44 @@ export class AppComponent implements OnInit {
 
     Cesium.BingMapsApi.defaultKey = 'AroazdWsTmTcIx4ZE3SIicDXX00yEp9vuRZyn6pagjyjgS-VdRBfBNAVkvrucbqr';
     window['CESIUM_BASE_URL'] = '/assets/Cesium';
-    this.viewer = new Cesium.Viewer('cesiumViewer');
+    this.viewer = new Cesium.Viewer('cesiumViewer', {animation: false, baseLayerPicker: false, fullscreenButton: false, geocoder: false, timeline: false});
+
+    const example = {
+      "type": "Feature",
+      "properties": {
+        "name": "Coors Field",
+        "amenity": "Baseball Stadium",
+        "popupContent": "This is where the Rockies play!"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-104.99404, 39.75621]
+      }
+    };
+
+    this.viewer.dataSources.add(Cesium.GeoJsonDataSource.load(example, {
+      stroke: Cesium.Color.HOTPINK,
+      fill: Cesium.Color.PINK,
+      strokeWidth: 3,
+      markerSymbol: '$'
+    }));
 
     this.viewer.camera.flyTo({
       destination : Cesium.Cartesian3.fromDegrees(35.771959, 31.217018,800000)
     });
 
     this._appService.pointChanged.subscribe(point => {
+      if (this.currentPoint === point) return;
       this.currentPoint = point;
       var pinBuilder = new Cesium.PinBuilder();
 
-      let pointDegrees = Cesium.Cartesian3.fromDegrees(point.lon, point.lat);
+      this.viewer.camera.flyTo({
+        destination: Cesium.Cartesian3.fromDegrees(point.lon, point.lat,800)
+      });
 
       let entity = this.viewer.entities.add({
-        position : pointDegrees,
+        position : Cesium.Cartesian3.fromDegrees(point.lon, point.lat,0),
+
 
         billboard : {
           image : pinBuilder.fromColor(Cesium.Color.ROYALBLUE, 48).toDataURL(), // default: undefined
@@ -54,15 +78,15 @@ export class AppComponent implements OnInit {
           color : Cesium.Color.LIME, // default: WHITE
           rotation : Cesium.Math.PI_OVER_FOUR, // default: 0.0
           alignedAxis : Cesium.Cartesian3.ZERO, // default
-          width : 25, // default: undefined
-          height : 25 // default: undefined
+          width : 10, // default: undefined
+          height : 10, // default: undefined
+          properties: {
+            doron: 'maman'
+          }
         }
 
       });
 
-      // this.viewer.camera.flyTo({
-      //   destination : pointDegrees
-      // });
 
       this.entityToPoint.set(entity, point);
     });
