@@ -1,11 +1,17 @@
+
 <div>
 <div id="first" class="ui inverted segment">
-  <div class="ui inverted secondary pointing menu">
+  <div
+       class="ui inverted secondary pointing menu">
 
-    <a class="mdl-navigation__link active item" [routerLink]="['/']">Home</a>
+<div>
+  <h2 class="styleTitleapp">כוח הזרוע </h2>
+</div>
 
-    <a class="mdl-navigation__link active item" [routerLink]="['/AddUser']">ADD MISSION</a>
-    <a class="item">
+    <a id="styleMenuHome"(click)="onClickHome()" [ngClass]="{active: this.flag1,item:true}" [routerLink]="['/']">Home</a>
+
+    <a id="styleMenuAddMission"(click)="onClickAddMisiion()" [ngClass]="{active: this.flag2,item:true}" [routerLink]="['/AddUser']">ADD MISSION</a>
+    <a id="styleMenuHelp"(click)="onClickHelp()" [ngClass]="{active: this.flag3,item:true}">
       HELP
     </a>
   </div>
@@ -16,7 +22,10 @@
 <div class="Cesiumapp" id="lefsSide">
 <div class="cesiumStyle">
 <div id="cesiumViewer" class="cesiumViewer"></div>
-
+  <div class="ui checkbox">
+    <input type="checkbox" name="example" (click)="onClickToggleLayer()">
+    <label>Toggle layer</label>
+  </div>
 </div>
 <div class="sidenavStyle">
 <router-outlet></router-outlet>

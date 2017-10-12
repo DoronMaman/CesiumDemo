@@ -13,16 +13,49 @@ import {Point} from './models/point';
 export class AppComponent implements OnInit {
   title = 'Demo Cesium ';
   viewer: any;
+  layer:any;
+  showingLayer: boolean = false;
   currentPoint: Point;
   entityToPoint: Map<any, Point>;
+  flag1 = true;
+  flag2=false;
+  flag3=false
+  styleActiveName='active item';
+  styleItemname='item';
+  onClickHome() {
 
+    this.flag1=true;
+    this.flag2=false;
+    this.flag3=false;
+  }
+  onClickAddMisiion() {
+
+    this.flag1=false;
+    this.flag2=true;
+    this.flag3=false;
+  }
+  onClickHelp() {
+
+    this.flag1=false;
+    this.flag2=false;
+    this.flag3=true;
+  }
+  /*  onClick() {
+      if(this.flag==true) {
+        this.wasClicked='active item';
+        this.wasntClick='item';
+      }
+      else{
+        this.wasClicked='item';
+        this.wasntClick='active item';
+      }
+    }*/
   dataPoint:dataservice;
   constructor(
     private _Sidenavservice: Sidenavservice,private _appService:appService
   ) {
     this.entityToPoint = new Map<any, Point>();
   }
-
 
   ngOnInit(): void {
 
@@ -42,6 +75,7 @@ export class AppComponent implements OnInit {
         "coordinates": [-104.99404, 39.75621]
       }
     };
+
 
     this.viewer.dataSources.add(Cesium.GeoJsonDataSource.load(example, {
       stroke: Cesium.Color.HOTPINK,
@@ -102,4 +136,28 @@ export class AppComponent implements OnInit {
 
   }
 
+  onClickToggleLayer() {
+    if (!this.layer) {
+      Cesium.GeoJsonDataSource.load('https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json', {
+        stroke: Cesium.Color.BLACK,
+        fill: Cesium.Color.ALICEBLUE.withAlpha(0.5),
+        strokeWidth: 50
+      }).then(ds => {
+        this.layer = ds;
+        this.toggleLayer();
+      });
+    } else {
+     this.toggleLayer();
+    }
+  }
+
+  toggleLayer() {
+    if (this.showingLayer) {
+      this.viewer.dataSources.remove(this.layer);
+    } else {
+      this.viewer.dataSources.add(this.layer);
+    }
+
+    this.showingLayer = !this.showingLayer;
+  }
 }

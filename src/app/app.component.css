@@ -14,13 +14,27 @@ width: 70%;
 /*  flex:1;*/
 }
 .sidenavStyle{
+  background-color: teal;
   width: 30%;
 /*  flex:1;*/
   border-style: groove;
 }
-.Cesiumapp{
-  display:flex;
+.Cesiumapp {
+  display: flex;
 
+}
+.styleTitleapp{
+  position: relative;
+ right: -649%;
+}
+#styleMenuHome{
+  left:-8%;
+}
+#styleMenuAddMission{
+  left:-9%;
+}
+#styleMenuHelp{
+  left:-10%;
 }
 h1 {
   font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
